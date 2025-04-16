@@ -1,5 +1,19 @@
 # Dotfiles Management
 
+<!--toc:start-->
+
+- [Dotfiles Management](#dotfiles-management)
+  - [What's Inside](#whats-inside)
+  - [Setup on a New Machine](#setup-on-a-new-machine)
+    - [1. Back up Existing Dotfiles](#1-back-up-existing-dotfiles)
+    - [2. Clone the Repository](#2-clone-the-repository)
+    - [3. Add the Git Function Override to Your Shell Configuration](#3-add-the-git-function-override-to-your-shell-configuration)
+    - [4. Checkout Your Dotfiles](#4-checkout-your-dotfiles)
+    - [6. Configure Git to Hide Untracked Files](#6-configure-git-to-hide-untracked-files)
+  - [Usage](#usage)
+  - [Benefits](#benefits)
+  <!--toc:end-->
+
 This repository contains my personal dotfiles, managed using a bare Git repository approach as described in [this article ](https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles/).
 
 ## What's Inside
@@ -30,27 +44,23 @@ Clone as a bare repository:
 git clone --bare git@github.com:dancoconetu/dotfiles.git $HOME/.dotfiles
 ```
 
-### 3. Define the Alias
+### 3. Add the Git Function Override to Your Shell Configuration
+
+Instead of using an alias, add this function to your `.zshrc` (or `.bashrc`) file:
 
 ```bash
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+git() {
+  if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/.config"* ]]; then
+    command git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
+  else
+    command git "$@"
+  fi
+}
 ```
 
-### 4. Add the Alias to Your Shell Configuration
+This function automatically uses your dotfiles repository when you're in your home directory or `.config` subdirectories, and behaves normally elsewhere.
 
-For Bash:
-
-```bash
-echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> ~/.bashrc
-```
-
-For Zsh:
-
-```bash
-echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'" >> ~/.zshrc
-```
-
-### 5. Checkout Your Dotfiles
+### 4. Checkout Your Dotfiles
 
 ```bash
 dotfiles checkout
@@ -72,21 +82,24 @@ dotfiles config --local status.showUntrackedFiles no
 
 ## Usage
 
-Once set up, you can manage your dotfiles using the `dotfiles` command just like you would use `git`:
+Once set up, you can manage your dotfiles using regular `git` commands when you're in your home directory or .config directory:
 
 ```bash
+# When in $HOME or $HOME/.config/* directories:
 # Add a file
-dotfiles add .vimrc
+git add .zshrc
 
 # Commit changes
-dotfiles commit -m "Update vim configuration"
+git commit -m "Update zshrc configuration"
 
 # Push to remote repository
-dotfiles push
+git push
 
 # Pull updates
-dotfiles pull
+git pull
 ```
+
+When working in other directories, the `git` command works normally with your regular repositories.
 
 ## Benefits
 

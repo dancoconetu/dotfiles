@@ -24,9 +24,9 @@ return {
 					["file"] = {
 						-- Location to the slash command in CodeCompanion
 						callback = "strategies.chat.slash_commands.file",
-						description = "Select a file using Telescope",
+						description = "Select a file using Snacks",
 						opts = {
-							provider = "mini_pick", -- Other options include 'default', 'mini_pick', 'fzf_lua', snacks
+							provider = "snacks", -- Other options include 'default', 'mini_pick', 'fzf_lua', snacks
 							contains_code = true,
 						},
 					},

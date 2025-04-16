@@ -12,7 +12,7 @@ return {
 
 		-- Configure file selector to use mini.pick
 		file_selector = {
-			provider = "telescope",
+			provider = "snacks",
 		},
 
 		-- Add keymaps for quick access

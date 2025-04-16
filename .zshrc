@@ -103,7 +103,8 @@ source ~/.profile
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias code='code-insiders'
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -116,7 +117,20 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-
+git() {
+  if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/.config"* ]]; then
+    command git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
+  else
+    command git "$@"
+  fi
+}
+lazygit() {
+  if [[ "$PWD" == "$HOME" || "$PWD" == "$HOME/.config"* ]]; then
+    GIT_DIR="$HOME/.dotfiles" GIT_WORK_TREE="$HOME" command lazygit "$@"
+  else
+    command lazygit "$@"
+  fi
+}
 export IGNOREEOF=10
 
 set -o ignoreeof

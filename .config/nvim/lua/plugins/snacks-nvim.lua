@@ -1,24 +1,23 @@
 return {
 	"folke/snacks.nvim",
-	priority = 1000,
+	priority = 1001,
 	lazy = false,
 	---@type snacks.Config
 	opts = {
-		bigfile = { enabled = false },
+		bigfile = { enabled = true },
 		dashboard = { enabled = true },
-		explorer = { enabled = false },
+		explorer = { enabled = true },
 		indent = { enabled = true },
 		input = { enabled = true },
 		notifier = {
 			enabled = true,
-			timeout = 3000,
+			timeout = 3001,
 		},
-		terminal = { enabled = true },
 		picker = { enabled = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
-		scroll = { enabled = false },
-		statuscolumn = { enabled = false },
+		scroll = { enabled = true },
+		statuscolumn = { enabled = true },
 		words = { enabled = true },
 		styles = {
 			notification = {
@@ -27,6 +26,28 @@ return {
 		},
 	},
 	keys = {
+
+		-- Add these to the keys section in your snacks-nvim.lua file
+		{
+			"<C-e>",
+			function()
+				vim.notify("Function called!", vim.log.levels.ERROR)
+				_G.snacks_add_selected_to_avante_context()
+			end,
+			desc = "Add selected to Avante",
+			mode = { "i", "n" },
+			ft = "snacks-picker-input", -- Only available in Snacks picker windows
+		},
+		{
+			"<C-e>",
+			function()
+				_G.explorer_add_selected_to_avante_context()
+			end,
+			desc = "Add selected to Avante",
+			mode = { "n" },
+			ft = "snacks-picker-list", -- Only available in Snacks explorer windows
+		},
+
 		-- Top Pickers & Explorer
 		{
 			"<leader><space>",
@@ -43,7 +64,7 @@ return {
 			desc = "Buffers",
 		},
 		{
-			"<leader>ps",
+			"<leader>/",
 			function()
 				Snacks.picker.grep()
 			end,
@@ -86,14 +107,14 @@ return {
 			desc = "Find Config File",
 		},
 		{
-			"<leader>pf",
+			"<leader>ff",
 			function()
 				Snacks.picker.files()
 			end,
 			desc = "Find Files",
 		},
 		{
-			"<leader>pgf",
+			"<leader>fg",
 			function()
 				Snacks.picker.git_files()
 			end,
@@ -328,6 +349,13 @@ return {
 			desc = "Resume",
 		},
 		{
+			"<leader>su",
+			function()
+				Snacks.picker.undo()
+			end,
+			desc = "Undo History",
+		},
+		{
 			"<leader>uC",
 			function()
 				Snacks.picker.colorschemes()
@@ -335,40 +363,22 @@ return {
 			desc = "Colorschemes",
 		},
 		-- LSP
-
 		{
-			"<leader>oi",
-			function()
-				vim.lsp.buf.execute_command({
-					command = "typescript.organizeImports",
-					arguments = { vim.api.nvim_buf_get_name(0) },
-				})
-			end,
-			desc = "Organize Imports",
-			mode = "n",
-		},
-		-- {
-		-- 	"<leader>mi",
-		-- 	vim.lsp.action["source.addMissingImports.ts"],
-		-- 	desc = "Add missing imports",
-		-- 	mode = "n",
-		-- },
-		{
-			"<leader>gd",
+			"gd",
 			function()
 				Snacks.picker.lsp_definitions()
 			end,
 			desc = "Goto Definition",
 		},
 		{
-			"<leader>gD",
+			"gD",
 			function()
 				Snacks.picker.lsp_declarations()
 			end,
 			desc = "Goto Declaration",
 		},
 		{
-			"<leader>gr",
+			"gr",
 			function()
 				Snacks.picker.lsp_references()
 			end,
@@ -376,19 +386,12 @@ return {
 			desc = "References",
 		},
 		{
-			"<leader>gI",
+			"gI",
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
 			desc = "Goto Implementation",
 		},
-		--       {
-		-- 	"<leader>ca",
-		-- 	function()
-		-- 		Snacks.picker.lsp_code_actions()
-		-- 	end,
-		-- 	desc = "Code actions",
-		-- },
 		{
 			"gy",
 			function()
@@ -487,20 +490,7 @@ return {
 			function()
 				Snacks.terminal()
 			end,
-			mode = { "n", "t" },
 			desc = "Toggle Terminal",
-		},
-
-		{
-			"<c-q>",
-			function()
-				if vim.fn.mode() == "t" then
-					vim.cmd("stopinsert") -- Exit terminal mode
-				else
-					Snacks.terminal():toggle() -- Toggle terminal
-				end
-			end,
-			desc = "Toggle Terminal and Exit Terminal Mode",
 		},
 		{
 			"<c-_>",
@@ -512,7 +502,7 @@ return {
 		{
 			"]]",
 			function()
-				Snacks.words.jump(vim.v.count1)
+				Snacks.words.jump(vim.v.count2)
 			end,
 			desc = "Next Reference",
 			mode = { "n", "t" },
@@ -520,7 +510,7 @@ return {
 		{
 			"[[",
 			function()
-				Snacks.words.jump(-vim.v.count1)
+				Snacks.words.jump(-vim.v.count2)
 			end,
 			desc = "Prev Reference",
 			mode = { "n", "t" },
@@ -530,15 +520,15 @@ return {
 			desc = "Neovim News",
 			function()
 				Snacks.win({
-					file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-					width = 0.6,
-					height = 0.6,
+					file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[2],
+					width = 1.6,
+					height = 1.6,
 					wo = {
 						spell = false,
 						wrap = false,
 						signcolumn = "yes",
 						statuscolumn = " ",
-						conceallevel = 3,
+						conceallevel = 4,
 					},
 				})
 			end,
@@ -564,7 +554,7 @@ return {
 				Snacks.toggle.diagnostics():map("<leader>ud")
 				Snacks.toggle.line_number():map("<leader>ul")
 				Snacks.toggle
-					.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+					.option("conceallevel", { off = 1, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
 					:map("<leader>uc")
 				Snacks.toggle.treesitter():map("<leader>uT")
 				Snacks.toggle

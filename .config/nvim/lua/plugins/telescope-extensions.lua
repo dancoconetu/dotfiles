@@ -236,9 +236,9 @@ return {
 			vim.keymap.set("n", "<C-p>", function()
 				builtin.find_files({ cwd = vim.fn.getcwd() })
 			end, { desc = "[Telescope] Find Files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[Telescope] Live Grep" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[Telescope] Find Buffers" })
-			vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "[Telescope] Recent Files (Oldfiles)" })
+			-- vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[Telescope] Live Grep" })
+			-- vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[Telescope] Find Buffers" })
+			-- vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "[Telescope] Recent Files (Oldfiles)" })
 
 			print("Telescope configured with corrected Avante context integration (<C-a>).")
 		end, -- end config function
