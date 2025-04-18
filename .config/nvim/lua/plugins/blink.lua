@@ -8,7 +8,6 @@ return {
 	version = "*",
 	-- dev = true,
 	---@module 'blink.cmp'
-	---@type blink.cmp.Config
 	opts = {
 		keymap = {
 			preset = "none",
@@ -42,13 +41,49 @@ return {
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
 			default = {
-				"copilot",
 				"lsp",
-				"ripgrep",
+				"easy-dotnet",
 				"path",
+				"copilot",
+				"ripgrep",
 				"buffer",
 			},
 			providers = {
+				lsp = {
+					name = "lsp",
+					enabled = true,
+					module = "blink.cmp.sources.lsp",
+					score_offset = 90,
+				},
+				["easy-dotnet"] = {
+					name = "easy-dotnet",
+					enabled = true,
+					module = "easy-dotnet.completion.blink",
+					score_offset = 10000,
+					async = true,
+				},
+				path = {
+					name = "Path",
+					module = "blink.cmp.sources.path",
+					score_offset = 25,
+					fallbacks = { "snippets", "buffer" },
+					opts = {
+						trailing_slash = false,
+						label_trailing_slash = true,
+						get_cwd = function(context)
+							return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
+						end,
+						show_hidden_files_by_default = true,
+					},
+				},
+				buffer = {
+					name = "Buffer",
+					enabled = true,
+					max_items = 3,
+					module = "blink.cmp.sources.buffer",
+					min_keyword_length = 4,
+					score_offset = 15,
+				},
 				copilot = {
 					name = "copilot",
 					module = "blink-copilot",
@@ -60,7 +95,6 @@ return {
 					name = "Ripgrep",
 					-- the options below are optional, some default values are shown
 					---@module "blink-ripgrep"
-					---@type blink-ripgrep.Options
 					opts = {
 						-- For many options, see `rg --help` for an exact description of
 						-- the values that ripgrep expects.

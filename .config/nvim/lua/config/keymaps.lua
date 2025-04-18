@@ -35,7 +35,6 @@ keymap.set("n", "<leader>Y", [["+Y]])
 keymap.set("v", "<C-c>", [["+Y]])
 
 keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Smart LSP code action" })
-keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Smart LSP rename" })
 ------------------- easy dotnet stuff -----------------------
 keymap.set("n", "<leader>dn", "<CMD>Dotnet<CR>", { desc = "Dotnet commands" })
 
@@ -45,6 +44,12 @@ vim.api.nvim_set_keymap("t", "<C-/>", "<C-\\><C-n>", { noremap = true, silent = 
 keymap.set("n", "<leader>ov", "<CMD>OverseerToggle<CR>", { desc = "Overseer Toggle" })
 keymap.set("n", "<leader>or", "<CMD>OverseerRun<CR>", { desc = "Overseer Run" })
 keymap.set("n", "<leader>ne", "<CMD>Neotree<CR>", { desc = "NeoTree" })
+
+-- Resize splits
+vim.keymap.set("n", "<C-A-l>", ":3winc ><CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-A-h>", ":3winc <<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-A-j>", ":res +3 <CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-A-k>", ":res -3 <CR>", { noremap = true, silent = true })
 
 keymap.set(
 	"n",

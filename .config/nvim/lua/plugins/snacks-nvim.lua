@@ -27,27 +27,6 @@ return {
 	},
 	keys = {
 
-		-- Add these to the keys section in your snacks-nvim.lua file
-		{
-			"<C-e>",
-			function()
-				vim.notify("Function called!", vim.log.levels.ERROR)
-				_G.snacks_add_selected_to_avante_context()
-			end,
-			desc = "Add selected to Avante",
-			mode = { "i", "n" },
-			ft = "snacks-picker-input", -- Only available in Snacks picker windows
-		},
-		{
-			"<C-e>",
-			function()
-				_G.explorer_add_selected_to_avante_context()
-			end,
-			desc = "Add selected to Avante",
-			mode = { "n" },
-			ft = "snacks-picker-list", -- Only available in Snacks explorer windows
-		},
-
 		-- Top Pickers & Explorer
 		{
 			"<leader><space>",
