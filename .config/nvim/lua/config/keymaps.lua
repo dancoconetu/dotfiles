@@ -18,6 +18,14 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("x", "<leader>p", [["_dP]])
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "K", function()
+	if require("dap").session() then
+		require("dap.ui.widgets").hover()
+	else
+		-- Your normal K behavior here (like vim.lsp.buf.hover)
+		vim.lsp.buf.hover()
+	end
+end, { desc = "Hover (LSP or DAP)" })
 
 --------------------  Move page down/up and keep it centered  -------------------
 keymap.set("n", "<C-d>", "<C-d>zz")

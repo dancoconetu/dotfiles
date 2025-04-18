@@ -1,22 +1,3 @@
--- local get_active_lsp = function()
--- 	local msg = "No Active Lsp"
--- 	local buf_ft = vim.api.nvim_get_option_value("filetype", {})
--- 	local clients = vim.lsp.get_clients({ bufnr = 0 })
--- 	if next(clients) == nil then
--- 		return msg
--- 	end
--- 	local active_clients = {}
--- 	for _, client in ipairs(clients) do
--- 		local filetypes = client.config.filetypes
--- 		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
--- 			table.insert(active_clients, client.name)
--- 		end
--- 	end
--- 	if #active_clients > 0 then
--- 		return table.concat(active_clients, ", ")
--- 	end
--- 	return msg
--- end
 local get_active_lsp = function()
 	local msg = "No Active Lsp"
 	local clients = vim.lsp.get_clients({ bufnr = 0 })
