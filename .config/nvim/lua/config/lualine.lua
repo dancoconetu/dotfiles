@@ -84,3 +84,16 @@ require("lualine").setup({
 	inactive_winbar = {},
 	extensions = {},
 })
+
+-- dap ui
+local dap = require("dap")
+vim.keymap.set("n", "<leader>di", function()
+	dap.repl.open()
+	dap.repl.execute(vim.fn.expand("<cexpr>"))
+end)
+vim.keymap.set("v", "<leader>di", function()
+	-- getregion requires nvim 0.10
+	local lines = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"))
+	dap.repl.open()
+	dap.repl.execute(table.concat(lines, "\n"))
+end)
