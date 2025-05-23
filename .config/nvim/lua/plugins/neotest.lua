@@ -28,7 +28,7 @@ return {
 					require("neotest-plenary"),
 					require("neotest-dotnet")({
 						-- sdk_path = "/usr/lib/dotnet/sdk/8.0.115",
-						sdk_path = "/usr/lib/dotnet/sdk/9.0.105",
+						sdk_path = "/usr/lib/dotnet/sdk/9.0.106",
 						-- 	discovery_root = "solution",
 						-- 	dap_settings = {
 						-- 		adapter = "coreclr",
