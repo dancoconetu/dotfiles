@@ -35,6 +35,15 @@ return {
 			end,
 			desc = "Smart Find Files",
 		},
+		-- Add this to your keys table
+		{
+			"<leader>gm", -- or any other keybinding you prefer
+			function()
+				Snacks.picker.git_status({ state = "modified" })
+			end,
+			desc = "Git Modified Files",
+		},
+
 		{
 			"<leader>,",
 			function()
@@ -42,6 +51,14 @@ return {
 			end,
 			desc = "Buffers",
 		},
+		{
+			"<leader><Tab>",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Buffers",
+		},
+
 		{
 			"<leader>/",
 			function()

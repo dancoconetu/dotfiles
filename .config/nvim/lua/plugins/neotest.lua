@@ -5,7 +5,8 @@ return {
 	{ "nvim-neotest/neotest-plenary" },
 
 	-- .NET test adapter
-	{ "Nsidorenco/neotest-dotnet" },
+	-- { "Nsidorenco/neotest-dotnet" },
+	{ "Issafalcon/neotest-dotnet" },
 
 	-- Main neotest plugin
 	{
@@ -16,7 +17,8 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-neotest/neotest-plenary",
-			"Nsidorenco/neotest-dotnet",
+			-- "Nsidorenco/neotest-dotnet",
+			"Issafalcon/neotest-dotnet",
 		},
 		config = function()
 			local neotest = require("neotest")
@@ -25,11 +27,13 @@ return {
 				adapters = {
 					require("neotest-plenary"),
 					require("neotest-dotnet")({
-						sdk_path = "/usr/lib/dotnet/sdk/8.0.115",
-						discovery_root = "solution",
-						dap_settings = {
-							adapter = "netcoredbg",
-						},
+						-- sdk_path = "/usr/lib/dotnet/sdk/8.0.115",
+						sdk_path = "/usr/lib/dotnet/sdk/9.0.105",
+						-- 	discovery_root = "solution",
+						-- 	dap_settings = {
+						-- 		adapter = "coreclr",
+						-- 		name = "coreclr - attach",
+						-- 	},
 					}),
 				},
 			})

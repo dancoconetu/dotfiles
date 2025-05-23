@@ -46,7 +46,7 @@ return {
 				"lsp",
 				"easy-dotnet",
 				"path",
-				"copilot",
+				-- "copilot",
 				-- "ripgrep",
 				"buffer",
 			},
@@ -55,7 +55,7 @@ return {
 					name = "lsp",
 					enabled = true,
 					module = "blink.cmp.sources.lsp",
-					score_offset = 90,
+					score_offset = 10,
 				},
 				["easy-dotnet"] = {
 					name = "easy-dotnet",

@@ -20,10 +20,13 @@ end
 
 return {
 	"GustavEikaas/easy-dotnet.nvim",
+	dir = "~/repos/easy-dotnet.nvim",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 	config = function()
 		local dotnet = require("easy-dotnet")
 		dotnet.setup({
+			-- get_sdk_path = "/usr/lib/dotnet/sdk/9.0.105",
+			-- get_sdk_path = "/usr/lib/dotnet/sdk/8.0.115",
 			auto_bootstrap_namespace = true,
 			csproj_mappings = true,
 			test_runner = {

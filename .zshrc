@@ -102,7 +102,7 @@ source ~/.profile
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias code='code-insiders'
+# alias code='code-insiders'
 
 
 export NVM_DIR="$HOME/.nvm"

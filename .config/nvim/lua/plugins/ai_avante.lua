@@ -25,8 +25,8 @@ return {
 			support_paste_from_clipboard = false,
 			minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
 			enable_token_counting = true, -- Whether to enable token counting. Default to true.
-			enable_cursor_planning_mode = false, -- Whether to enable Cursor Planning Mode. Default to false.
-			enable_claude_text_editor_tool_mode = true, -- Whether to enable Claude Text Editor Tool Mode.
+			enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
+			enable_claude_text_editor_tool_mode = false, -- Whether to enable Claude Text Editor Tool Mode.
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
